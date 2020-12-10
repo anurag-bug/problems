@@ -6,6 +6,12 @@
 #Check if count of divisors is odd or even.
 
 def hasEvenNumberOfFactors(n):
+  #Factors appear in pairs but in case of perfect squares they are odd. Ex
+  #5 = 1,5
+  #4 = 1,2,4
+  #25 = 1,5,25
+  #36 = 1,2,3,4,6,9,12,18,36
+  #12 = 1,2,3,4,6,12
   sqrt = math.sqrt(n)
   if sqrt * sqrt == n:
     return False
