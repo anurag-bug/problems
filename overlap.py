@@ -4,6 +4,8 @@
 #Find and return whether the two rectangles overlap or not.
 
 
+#Return 1 if the two rectangles overlap else return 0.
+
 
 
 class Solution:
