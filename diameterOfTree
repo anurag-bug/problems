@@ -1,0 +1,33 @@
+Given a Binary Tree A consisting of N integer nodes, you need to find the diameter of the tree.
+
+The diameter of a tree is the number of edges on the longest path between two nodes in the tree.
+
+
+import sys
+sys.setrecursionlimit(999999999)
+# Definition for a  binary tree node
+# class TreeNode:
+#    def __init__(self, x):
+#        self.val = x
+#        self.left = None
+#        self.right = None
+
+class Solution:
+    # @param A : root node of tree
+    # @return an integer
+    def height(self, A):
+        if A == None:
+            return -1
+        else:
+            return 1+max(self.height(A.left),self.height(A.right))
+    def solveHelper(self, A):
+        if A == None:
+            return (-1,0)
+        else:
+            leftHeightAndDia = self.solveHelper(A.left)
+            rightHeightAndDia = self.solveHelper(A.right)
+            # return max(leftSubTree,rightSubTree)+1
+            return (max(leftHeightAndDia[0],rightHeightAndDia[0])+1 , max(leftHeightAndDia[1], rightHeightAndDia[1], leftHeightAndDia[0]+rightHeightAndDia[0]+2))
+    def solve(self, A):
+        return self.solveHelper(A)[1]
+        
