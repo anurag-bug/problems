@@ -1,0 +1,22 @@
+https://leetcode.com/problems/check-completeness-of-a-binary-tree/
+from collections import deque
+class Solution:
+    def isCompleteTree(self, root: TreeNode) -> bool:
+        if root == None:
+            return True
+        else:
+            endFlag = False
+            dq = deque()
+            dq.append(root)
+            while dq:
+                front = dq.popleft()
+                // we encounter a null node, we set the flag as end of tree
+                if front == None:
+                    endFlag = True
+                else:
+                    // even if we encounter nodes after end flag means it is not complete binary tree.
+                    if endFlag:
+                        return False
+                    dq.append(front.left)
+                    dq.append(front.right)
+        return True
