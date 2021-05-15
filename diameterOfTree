@@ -14,20 +14,19 @@ sys.setrecursionlimit(999999999)
 
 class Solution:
     # @param A : root node of tree
-    # @return an integer
-    def height(self, A):
-        if A == None:
-            return -1
+    # @return an integer    
+     def diaHelper(self, root):
+        if root == None:
+            return (0, 0)
         else:
-            return 1+max(self.height(A.left),self.height(A.right))
-    def solveHelper(self, A):
-        if A == None:
-            return (-1,0)
-        else:
-            leftHeightAndDia = self.solveHelper(A.left)
-            rightHeightAndDia = self.solveHelper(A.right)
-            # return max(leftSubTree,rightSubTree)+1
-            return (max(leftHeightAndDia[0],rightHeightAndDia[0])+1 , max(leftHeightAndDia[1], rightHeightAndDia[1], leftHeightAndDia[0]+rightHeightAndDia[0]+2))
-    def solve(self, A):
-        return self.solveHelper(A)[1]
+            leftHeightAndDia = self.diaHelper(root.left)
+            rightHeightAndDia = self.diaHelper(root.right)
+            leftHeight = leftHeightAndDia[0]
+            rightHeight = rightHeightAndDia[0]
+            leftDia = leftHeightAndDia[1]
+            rightDia = rightHeightAndDia[1]
+            return (1+ max(leftHeight, rightHeight), max(leftDia, rightDia, leftHeight+ rightHeight))
+            
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        return self.diaHelper(root)[1]]
         
