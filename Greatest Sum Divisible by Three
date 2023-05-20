@@ -1,0 +1,46 @@
+Greatest Sum Divisible by Three
+Given an integer array nums, return the maximum possible sum of elements of the array such that it is divisible by three.
+Input: nums = [3,6,5,1,8]
+Output: 18
+Explanation: Pick numbers 3, 6, 1 and 8 their sum is 18 (maximum sum divisible by 3).
+Input: nums = [4]
+Output: 0
+Explanation: Since 4 is not divisible by 3, do not pick any number.
+
+Explain: 
+if total sum that you get by adding all numbers in the given vector gives you a remainder 1 let say then in that case you can either remove 1 element from the vector that gives the remainder as 1 or you can remove 2 element from vector that gives remainder as 2.
+Similarly if the total sum % 3 == 2 then in that case either you need to remove a number from the vector that gives remainder as 2 or you need to remove 2 numbers that gives remainder as 1.
+
+import heapq
+class Solution:
+    def maxSumDivThree(self, nums: List[int]) -> int:
+        pq1 = []
+        pq2 = []
+        total_sum=0
+        for num in nums:
+            total_sum += num
+            if num % 3 == 1:
+                heapq.heappush(pq1,num)
+            if num %3 == 2:
+                heapq.heappush(pq2,num)
+        if total_sum %3 == 0:
+            return total_sum
+        if total_sum % 3 == 1:
+            sum1,sum2=0,0
+            if len(pq1) > 0:
+                x = heapq.heappop(pq1)
+                sum1=total_sum-x
+            if len(pq2) > 1:
+                y = heapq.heappop(pq2)
+                z = heapq.heappop(pq2)
+                sum2 = total_sum-(y+z)
+            return max(sum1,sum2)
+        if total_sum % 3 == 2:
+            sum1,sum2=0,0
+            if len(pq2) > 0:
+                sum1 = total_sum-heapq.heappop(pq2)
+            if len(pq1) > 1:
+                y = heapq.heappop(pq1)
+                z = heapq.heappop(pq1)
+                sum2 = total_sum-(y+z)
+            return max(sum1,sum2)
